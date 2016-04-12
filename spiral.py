@@ -29,8 +29,8 @@ def trim(m, side):
 
 def trimmed(m, side):
 	""" returns the side that's removed by trim """
-	if side == "top": return copy(m[0])
-	if side == "bottom": return copy(m[len(m)-1])
+	if side == "top": return m[0]
+	if side == "bottom": return m[len(m)-1]
 	out = []
 	for row in m:
 		out.append(row[len(row)-1] if side == "right" else row[1])
@@ -44,9 +44,9 @@ def spiral(m, side="top"):
 	if m == [[]] or m == []: return []
 
 	side_contents = []
-	if side == "top" or side == " right": side_contents = trimmed(m, side)
+	if side == "top" or side == " right": side_contents = copy(trimmed(m, side))
 	if side == "bottom" or side == "left": side_contents = reversed(trimmed(m, side))
 	return side_contents + spiral(trim(m, side), next_side[side])
 
 
-print_matrix(spiral(filled_four_x_four))
+print spiral(filled_four_x_four)
