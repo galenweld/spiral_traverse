@@ -1,11 +1,11 @@
 from copy import deepcopy as copy
-import pprint
 
-four_x_four = [[0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]
+# some matrices to play with
 filled_four_x_four = [[1, 2, 3, 4], ["C", "D", "E", 5], ["B", "G", "F", 6], ["A", 9, 8, 7]]
 filled_two_x_two = [[0, 1], [3, 2]]
 
 
+# use this dict as an easy way to flip through sides
 next_side = {"top":"right", "right":"bottom", "bottom":"left", "left":"top"}
 
 
@@ -44,7 +44,7 @@ def spiral(m, side="top"):
 	side_contents = []
 	if side == "top" or side == "right": side_contents = copy(trimmed(m, side))
 	if side == "bottom" or side == "left": side_contents = list(reversed(trimmed(m, side)))
-	print side + ", " + str(side_contents) + " of"
+	print "traversing " + side + " side, " + str(side_contents) + ", of matrix"
 	print_matrix(m)
 	return side_contents + spiral(trim(m, side), next_side[side])
 
