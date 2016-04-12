@@ -18,26 +18,6 @@ def print_matrix(m):
 	return
 
 
-def trim(m, side):
-	""" returns a copy of m with the specified side removed """
-	if side == "top": return m[1:]
-	if side == "bottom": return m[:len(m)-1]
-	out = []
-	for row in m:
-		out.append(row[:len(row)-1] if side == "right" else row[1:])
-	return out
-
-
-def trimmed(m, side):
-	""" returns the side that's removed by trim """
-	if side == "top": return m[0]
-	if side == "bottom": return m[len(m)-1]
-	out = []
-	for row in m:
-		out.append(row[len(row)-1] if side == "right" else row[0])
-	return out
-
-
 def split(m, side):
 	""" returns a tuple containing the removed side and the matrix with side removed """
 	if side == "top": return (m[0], m[1:])
