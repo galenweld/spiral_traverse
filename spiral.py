@@ -38,15 +38,27 @@ def trimmed(m, side):
 	return out
 
 
+def split(m, side):
+	""" returns a tuple containing the removed side and the matrix with side removed """
+	if side == "top": return (m[0], m[1:])
+	if side == "bottom": return (m[len(m)-1], m[:len(m)-1])
+	removed_side = []
+	trimmed_matrix = []
+	for row in m:
+		removed_side.append(row[len(row)-1] if side == "right" else row[0])
+		trimmed_matrix.append(row[:len(row)-1] if side == "right" else row[1:])
+	return (removed_side, trimmed_matrix)
+
+
 def spiral(m, side="top"):
 	if m == [[]] or m == []: return []
 
-	side_contents = []
-	if side == "top" or side == "right": side_contents = copy(trimmed(m, side))
-	if side == "bottom" or side == "left": side_contents = list(reversed(trimmed(m, side)))
-	print "traversing " + side + " side, " + str(side_contents) + ", of matrix"
+	traversed_side = []
+	if side == "top" or side == "right": traversed_side = copy(split(m, side)[0])
+	if side == "bottom" or side == "left": traversed_side = list(reversed(split(m, side)[0]))
+	print "traversing " + side + " side, " + str(traversed_side) + ", of matrix"
 	print_matrix(m)
-	return side_contents + spiral(trim(m, side), next_side[side])
+	return traversed_side + spiral(split(m, side)[1], next_side[side])
 
 
 print spiral(filled_four_x_four)
