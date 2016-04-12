@@ -23,7 +23,7 @@ def trim(m, side):
 	if side == "bottom": return m[:len(m)-1]
 	out = []
 	for row in m:
-		out.append(row[:len(row)-1] if side == "right" else row[1:])
+		out.append(row[:len(row)-1] if side == "right" else row[:])
 	return out
 
 
@@ -33,19 +33,18 @@ def trimmed(m, side):
 	if side == "bottom": return m[len(m)-1]
 	out = []
 	for row in m:
-		out.append(row[len(row)-1] if side == "right" else row[1])
+		out.append(row[len(row)-1] if side == "right" else row[0])
 	return out
 
 
 def spiral(m, side="top"):
-	print "matrix:"
-	print_matrix(m)
-	print ""
 	if m == [[]] or m == []: return []
 
 	side_contents = []
 	if side == "top" or side == " right": side_contents = copy(trimmed(m, side))
-	if side == "bottom" or side == "left": side_contents = reversed(trimmed(m, side))
+	if side == "bottom" or side == "left": side_contents = list(reversed(trimmed(m, side)))
+	print side + ", " + str(side_contents) + " of"
+	print_matrix(m)
 	return side_contents + spiral(trim(m, side), next_side[side])
 
 
