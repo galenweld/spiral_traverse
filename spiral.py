@@ -37,7 +37,7 @@ def trimmed(m, side):
 	return out
 
 
-def spiral_helper(m, side):
+def spiral(m, side="top"):
 	print "matrix:"
 	print_matrix(m)
 	print ""
@@ -46,10 +46,7 @@ def spiral_helper(m, side):
 	side_contents = []
 	if side == "top" or side == " right": side_contents = trimmed(m, side)
 	if side == "bottom" or side == "left": side_contents = reversed(trimmed(m, side))
-	return side_contents + spiral_helper(trim(m, side), next_side[side])
-
-
-def spiral(m): return spiral_helper(m, "top")
+	return side_contents + spiral(trim(m, side), next_side[side])
 
 
 print_matrix(spiral(filled_four_x_four))
