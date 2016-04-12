@@ -1,8 +1,13 @@
 from copy import deepcopy as copy
 
+verbose = True
+
 # some matrices to play with
-filled_four_x_four = [[1, 2, 3, 4], ["C", "D", "E", 5], ["B", "G", "F", 6], ["A", 9, 8, 7]]
-filled_two_x_two = [[0, 1], [3, 2]]
+four_x_four = [[1, 2, 3, 4], ["C", "D", "E", 5], ["B", "G", "F", 6], ["A", 9, 8, 7]]
+two_x_two = [[0, 1], [3, 2]]
+small_rect = [[0, 1, 2, 3, 4, 5], ["D", "E", "F", "G", "H", 6], ["C", "B", "A", 9, 8, 7]]
+large_rect = [[0, 1, 2, 3, 4, 5, 6, 7], ["J", "K", "L", "M", "N", "O", "P", 8],
+				["I", "V", "U", "T", "S", "R", "Q", 9], ["H", "G", "F", "E", "D", "C", "B", "A"]]
 
 
 # use this dict as an easy way to flip through sides
@@ -36,9 +41,10 @@ def spiral(m, side="top"):
 	traversed_side = []
 	if side == "top" or side == "right": traversed_side = copy(split(m, side)[0])
 	if side == "bottom" or side == "left": traversed_side = list(reversed(split(m, side)[0]))
-	print "traversing " + side + " side, " + str(traversed_side) + ", of matrix"
-	print_matrix(m)
+	if verbose:
+		print "traversing " + side + " side, " + str(traversed_side) + ", of matrix"
+		print_matrix(m)
 	return traversed_side + spiral(split(m, side)[1], next_side[side])
 
 
-print spiral(filled_four_x_four)
+print spiral(large_rect)
